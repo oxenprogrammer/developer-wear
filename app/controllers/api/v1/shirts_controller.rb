@@ -15,7 +15,10 @@ class Api::V1::ShirtsController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    shirt = Shirt.find(params[:id]).destroy!
+    head :no_content if shirt.destroy
+  end
 
   private
 
