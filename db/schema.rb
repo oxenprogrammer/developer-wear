@@ -10,18 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_727_064_039) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+ActiveRecord::Schema.define(version: 2021_07_27_071126) do
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'username', null: false
-    t.string 'email', null: false
-    t.string 'image'
-    t.string 'password_digest'
-    t.boolean 'admin', default: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['email'], name: 'index_users_on_email'
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "shirts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "image", null: false
+    t.integer "price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_shirts_on_name"
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "email", null: false
+    t.string "image"
+    t.string "password_digest"
+    t.boolean "admin", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email"
+  end
+
 end
