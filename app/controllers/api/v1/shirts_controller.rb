@@ -6,7 +6,14 @@ class Api::V1::ShirtsController < ApplicationController
     render json: shirts.as_json
   end
 
-  def create; end
+  def create
+    shirt = Shirt.new(shirt_params)
+    if shirt.save
+      render json: shirt.as_json, status: :created
+    else
+      render json: shirt.errors, status: :unprocessable_entity
+    end
+  end
 
   def destroy; end
 
@@ -17,5 +24,9 @@ class Api::V1::ShirtsController < ApplicationController
       params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
       MAX_PAGINATION_LIMIT
     ].min
+  end
+
+  def shirt_params
+    params.permit(:name, :description, :price, :image)
   end
 end
