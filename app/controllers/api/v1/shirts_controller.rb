@@ -2,8 +2,9 @@ class Api::V1::ShirtsController < ApplicationController
   MAX_PAGINATION_LIMIT = 100
 
   def index
+    count = Shirt.all.count
     shirts = Shirt.limit(limit).offset(params[:offset])
-    render json: shirts.as_json
+    render json: { status: :ok, count: count, data: shirts.as_json }, status: :ok
   end
 
   def create
