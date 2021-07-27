@@ -9,9 +9,9 @@ module Api
         if user
           raise AuthenticationError unless user.authenticate(params.require(:password))
 
-          token = AuthenticationTokenService.call(user.id)
+          token = AuthenticationTokenService.encode(user_id: user.id)
 
-          render json: { token: token }, status: :ok
+          render json: { token: token, email: user.email, username: user.username }, status: :ok
         else
           render json: { status: '400' }, status: :bad_request
         end
