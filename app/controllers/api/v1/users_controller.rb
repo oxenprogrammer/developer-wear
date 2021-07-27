@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApplicationController
   def index
     count = User.all.count
     users = User.limit(limit).offset(params[:offset])
-    render json: { status: :ok, count: count, data: users.as_json }, status: :ok
+    render json: { status: :ok, count: count, data: users.as_json(only: %i[id username email]) }, status: :ok
   end
 
   def create
@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       render json: user.as_json, status: :created
     else
-      render json: user.errors.as_json, status: :unprocessable_entity
+      render json: user.errors.as_json(only: %i[id username email]), status: :unprocessable_entity
     end
   end
 
@@ -22,12 +22,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if shirt
-      shirt.update(shirt_params)
-      if shirt.save
-        render json: shirt.as_json, status: :ok
+    if user
+      user.update(user_params)
+      if user.save
+        render json: user.as_json(only: %i[id username email]), status: :ok
       else
-        render json: shirt.errors.as_json, status: :unprocessable_entity
+        render json: user.errors.as_json, status: :unprocessable_entity
       end
     else
       render json: { status: :not_found, message: 'user not found' }, status: :not_found

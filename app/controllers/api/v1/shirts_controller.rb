@@ -30,7 +30,7 @@ class Api::V1::ShirtsController < ApplicationController
         render json: shirt.errors.as_json, status: :unprocessable_entity
       end
     else
-      render json: {status: :not_found, message: 'shirt not found'}, status: :not_found
+      render json: { status: :not_found, message: 'shirt not found' }, status: :not_found
     end
   end
 
