@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-  # before_action :check_owner, only: %i[update destroy]
-  before_action :check_admin, only: %i[update]
+  before_action :check_owner, only: %i[update]
+  before_action :check_admin, only: %i[update destroy index]
 
   def index
     count = User.all.count
@@ -47,9 +47,5 @@ class Api::V1::UsersController < ApplicationController
 
   def check_owner
     head :forbidden unless user.id == current_user&.id
-  end
-
-  def check_admin
-    head :forbidden unless user.admin == true
   end
 end

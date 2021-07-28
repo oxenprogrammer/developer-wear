@@ -1,4 +1,5 @@
 class Api::V1::FavouritesController < ApplicationController
+  before_action :check_admin, only: %i[index]
 
   def index
     count = Favourite.all.count
@@ -22,5 +23,4 @@ class Api::V1::FavouritesController < ApplicationController
     render json: { status: '200', count: count, data: FavouritesRepresenter.new(paginated_favourites).as_json },
            status: :ok
   end
-
 end

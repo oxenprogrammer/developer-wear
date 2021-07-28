@@ -10,7 +10,7 @@ RSpec.describe Favourite, type: :model do
     FactoryBot.create(:shirt, name: 'no coffee', description: 'the best shirt to have is here', price: 345)
   end
 
-  let(:favourite) { FactoryBot.create(:favourite, user_id: user.id, shirt_id: shirt.id)}
+  let(:favourite) { FactoryBot.create(:favourite, user_id: user.id, shirt_id: shirt.id) }
 
   it 'should have valid attributes' do
     expect(favourite).to be_valid

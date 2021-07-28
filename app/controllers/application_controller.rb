@@ -13,4 +13,8 @@ class ApplicationController < ActionController::API
       MAX_PAGINATION_LIMIT
     ].min
   end
+
+  def check_admin
+    head :forbidden unless current_user.admin == true
+  end
 end
