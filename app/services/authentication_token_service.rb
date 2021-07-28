@@ -1,6 +1,6 @@
 class AuthenticationTokenService
   HMAC_SECRET = Rails.application.secrets.secret_key_base.to_s
-  ALGORITHM_TYPE = 'HS256'
+  ALGORITHM_TYPE = 'HS256'.freeze
 
   def self.encode(user_id)
     payload = { user_id: user_id }
