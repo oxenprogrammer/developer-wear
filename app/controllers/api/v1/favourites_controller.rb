@@ -16,9 +16,13 @@ class Api::V1::FavouritesController < ApplicationController
     end
   end
 
-  # def update; end
-
-  # def destroy; end
+  def show
+    count = Favourite.user_favourites(current_user).all.count
+    user_favourites = Favourite.user_favourites(current_user)
+    paginated_favourites = user_favourites.limit(limit).offset(params[:offset])
+    render json: { status: '200', count: count, data: FavouritesRepresenter.new(paginated_favourites).as_json },
+           status: :ok
+  end
 
   private
 
