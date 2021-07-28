@@ -7,6 +7,15 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'request_helper'
 
+require 'shoulda/matchers'
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
