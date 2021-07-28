@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  # before_action :check_owner, only: %i[update destroy]
+  before_action :check_admin, only: %i[update]
   MAX_PAGINATION_LIMIT = 100
 
   def index
@@ -48,6 +50,14 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user
-    @user ||= User.find_by(email: params.require(:email))
+    @user ||= User.find_by(id: params.require(:id))
+  end
+
+  def check_owner
+    head :forbidden unless user.id == current_user&.id
+  end
+
+  def check_admin
+    head :forbidden unless user.admin == true
   end
 end

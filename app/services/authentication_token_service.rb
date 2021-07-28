@@ -1,14 +1,15 @@
 class AuthenticationTokenService
-  HMAC_SECRET = ENV['HMAC_SECRET']
-  # ALGORITHM_TYPE = ENV['ALGORITHM_TYPE']
+  HMAC_SECRET = Rails.application.secrets.secret_key_base.to_s
+  ALGORITHM_TYPE = 'HS256'
 
-  def self.encode(payload, exp = 24.hours.from_now)
-    payload[:exp] = exp.to_i
-    JWT.encode(payload, HMAC_SECRET)
+  def self.encode(user_id)
+    payload = { user_id: user_id }
+    JWT.encode payload, HMAC_SECRET, ALGORITHM_TYPE
   end
 
   def self.decode(token)
-    decoded = JWT.decode(token, HMAC_SECRET).first
-    HashWithIndifferentAccess.new decoded
+    decoded_token = JWT.decode token, HMAC_SECRET, true, { algorithm: ALGORITHM_TYPE }
+    p decoded_token.inspect
+    decoded_token[0]['user_id']
   end
 end
