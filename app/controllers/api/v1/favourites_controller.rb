@@ -1,5 +1,4 @@
 class Api::V1::FavouritesController < ApplicationController
-  MAX_PAGINATION_LIMIT = 100
 
   def index
     count = Favourite.all.count
@@ -24,12 +23,4 @@ class Api::V1::FavouritesController < ApplicationController
            status: :ok
   end
 
-  private
-
-  def limit
-    [
-      params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
-      MAX_PAGINATION_LIMIT
-    ].min
-  end
 end

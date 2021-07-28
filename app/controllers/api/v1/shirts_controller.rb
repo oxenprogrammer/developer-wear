@@ -1,5 +1,4 @@
 class Api::V1::ShirtsController < ApplicationController
-  MAX_PAGINATION_LIMIT = 100
 
   def index
     count = Shirt.all.count
@@ -35,13 +34,6 @@ class Api::V1::ShirtsController < ApplicationController
   end
 
   private
-
-  def limit
-    [
-      params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
-      MAX_PAGINATION_LIMIT
-    ].min
-  end
 
   def shirt_params
     params.permit(:name, :description, :price, :image)

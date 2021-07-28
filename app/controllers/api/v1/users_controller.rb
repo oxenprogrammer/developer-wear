@@ -1,7 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   # before_action :check_owner, only: %i[update destroy]
   before_action :check_admin, only: %i[update]
-  MAX_PAGINATION_LIMIT = 100
 
   def index
     count = User.all.count
@@ -37,13 +36,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
-
-  def limit
-    [
-      params.fetch(:limit, MAX_PAGINATION_LIMIT).to_i,
-      MAX_PAGINATION_LIMIT
-    ].min
-  end
 
   def user_params
     params.permit(:username, :email, :password_confirmation, :password)
