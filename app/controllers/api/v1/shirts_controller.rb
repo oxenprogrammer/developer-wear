@@ -1,5 +1,6 @@
 class Api::V1::ShirtsController < ApplicationController
   before_action :check_admin, only: %i[create update destroy]
+  before_action :current_user, only: %i[index]
 
   def index
     count = Shirt.all.count

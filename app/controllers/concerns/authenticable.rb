@@ -7,7 +7,7 @@ module Authenticable
     user_id = AuthenticationTokenService.decode(token)
     @current_user = begin
       User.find(user_id)
-    rescue StandardError
+    rescue ActiveRecord::RecordNotFound
       ActiveRecord::RecordNotFound
     end
   end

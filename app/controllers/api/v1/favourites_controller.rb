@@ -1,5 +1,6 @@
 class Api::V1::FavouritesController < ApplicationController
   before_action :check_admin, only: %i[index]
+  before_action :current_user, only: %i[show create]
 
   def index
     count = Favourite.all.count
