@@ -11,8 +11,8 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      token = AuthenticationTokenService.encode(user.id)
-      render json: { token: token, email: user.email, username: user.username, admin: user.admin }.as_json,
+      # token = AuthenticationTokenService.encode(user.id)
+      render json: user.as_json,
              status: :created
     else
       render json: user.errors.as_json(only: %i[id username email]), status: :unprocessable_entity

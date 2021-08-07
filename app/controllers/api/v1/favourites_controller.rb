@@ -9,11 +9,17 @@ class Api::V1::FavouritesController < ApplicationController
   end
 
   def create
-    favourite = Favourite.new(user_id: current_user&.id, shirt_id: params[:id])
-    if favourite.save
-      render json: favourite.as_json, status: :created
+    available_favourite = Favourite.find_by(user_id: current_user.id)
+
+    if available_favourite
+      render json: { message: 'Already favourite' }.as_json, status: :ok
     else
-      render json: favourite.errors.as_json, status: :unprocessable_entity
+      favourite = Favourite.new(user_id: current_user.id, shirt_id: params[:id])
+      if favourite.save
+        render json: favourite.as_json, status: :created
+      else
+        render json: favourite.errors.as_json, status: :unprocessable_entity
+      end
     end
   end
 
