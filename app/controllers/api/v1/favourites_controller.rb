@@ -9,7 +9,7 @@ class Api::V1::FavouritesController < ApplicationController
   end
 
   def create
-    available_favourite = Favourite.find_by(user_id: current_user.id)
+    available_favourite = Favourite.find_by(shirt_id: params[:id])
 
     if available_favourite
       render json: { message: 'Already favourite' }.as_json, status: :ok
