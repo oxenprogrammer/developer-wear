@@ -14,6 +14,8 @@ I chose to implement a proper authentication since security is very important wh
 - Rspec
 - JWT
 - heroku
+- Cloudinary
+- Carrierwave
 
 ## The Web App
 
