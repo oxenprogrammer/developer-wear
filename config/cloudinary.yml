@@ -1,0 +1,11 @@
+# config/cloudinary.yml
+default: &default
+  cloud_name: <%= ENV['CLOUDINARY_USER_NAME'] %>
+  api_key: <%= ENV['CLOUDINARY_API_KEY'] %>
+  api_secret: <%= ENV['CLOUDINARY_SECRET'] %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default
